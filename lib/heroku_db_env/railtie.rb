@@ -33,7 +33,10 @@ private
   def env_config
     db_env.inject({}) do |a, (env, config)| 
       resolver = ActiveRecord::ConnectionAdapters::ConnectionSpecification::Resolver.new(config)
-      a[env.match(DB_URL_MATCHER)[1].downcase] = resolver.spec.config; a
+
+	myspec = resolver.spec(:production)
+
+      a[env.match(DB_URL_MATCHER)[1].downcase] = myspec.config; a
     end
   end
 
