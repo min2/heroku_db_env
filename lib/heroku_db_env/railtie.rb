@@ -19,7 +19,7 @@ class << self
 
   def build_db_config(default_config = {})
     heroku_config = load_heroku_db_config(Rails.root.join('config/heroku_database.yml'))
-    overlay_configs(default_config, heroku_config, env_config)
+    heroku_config
   end
 
 private
@@ -45,9 +45,6 @@ private
   end
 
   def overlay_configs(*configs)
-    configs.inject({}) do |a, c|
-      a.deep_merge(c.with_indifferent_access)
-    end
   end
 
 end
